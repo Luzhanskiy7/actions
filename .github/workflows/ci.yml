@@ -1,0 +1,38 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+      - jenk
+  workflow_dispatch:
+
+jobs:
+  my_first_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Show Python version
+        run: python --version
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: jenk
+
+      - name: Show directory
+        run: 'pwd'
+
+      - name: List files
+        run: 'ls -al'
+
+      - name: Install Dependencies
+        run: 'pip install -r requirements.txt'
+
+      - name: Test application
+        run: 'python manage.py test'
